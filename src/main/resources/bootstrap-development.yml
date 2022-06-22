@@ -1,0 +1,37 @@
+server.port: 8888
+
+spring:
+  application.name: proxy
+  cloud.config:
+    discovery.enabled: false
+    fail-fast: false
+
+eureka.client:
+  registerWithEureka: false
+  fetchRegistry: false
+
+ribbon:
+  serverListRefreshInterval: 1000
+  ConnectTimeout: 6000
+  ReadTimeout: 3000
+  SocketTimeout: 6000
+
+zuul:
+  ignoredServices: '*'
+  routes:
+    website-application:
+      path: /**
+      serviceId: website
+      sensitiveHeaders:
+    news-application:
+      path: /news/**
+      serviceId: news
+      sensitiveHeaders:
+    admin-application:
+      path: /admin/**
+      serviceId: admin
+      sensitiveHeaders:
+
+website.ribbon.NFLoadBalancerRuleClassName: be.intecbrussel.proxy.StickySessionRule
+admin.ribbon.NFLoadBalancerRuleClassName: be.intecbrussel.proxy.StickySessionRule
+news.ribbon.NFLoadBalancerRuleClassName: be.intecbrussel.proxy.StickySessionRule
