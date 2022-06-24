@@ -15,7 +15,7 @@ public class CustomFallbackProvider implements FallbackProvider {
 
     @Override
     public String getRoute() {
-        return "admin-application";
+        return "admin";
     }
 
     @Override
